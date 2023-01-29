@@ -1,0 +1,57 @@
+The Spanning Tree Protocol (STP) is to ensure that you do not create redundant loops.
+We can disable STP or enable as follows for br0:
+
+Input;
+
+$ sudo nmcli con modify br0 bridge.stp no
+
+Ubuntu Linux nmcli command to enable STP with br0;
+
+$ sudo nmcli con modify br0 bridge.stp yes
+
+Verification;
+
+$ nmcli con show
+$ nmcli -f bridge con show br0
+
+Output;
+
+    bridge.mac-address:                     --
+    bridge.stp:                             yes
+    bridge.priority:                        32768
+    bridge.forward-delay:                   15
+    bridge.hello-time:                      2
+    bridge.max-age:                         20
+    bridge.ageing-time:                     300
+    bridge.group-forward-mask:              0
+    bridge.multicast-snooping:              yes
+    bridge.vlan-filtering:                  no
+    bridge.vlan-default-pvid:               1
+    bridge.vlans:                           --
+
+--Set up static IP for the bridge interface--
+   
+Grab IP settings using HDCP like this;
+
+$ sudo nmcli con up br0
+$ ip a s br0
+$ ping www.google.comm
+
+--OR--
+
+Set static IP's;
+
+    ipv4:
+$ sudo nmcli connection modify br0 ipv4.addresses '192.168.2.25/24'
+$ sudo nmcli connection modify br0 ipv4.gateway '192.168.2.254'
+$ sudo nmcli connection modify br0 ipv4.dns '192.168.2.254'
+$ sudo nmcli connection modify br0 ipv4.dns-search 'sweet.home'
+$ sudo nmcli connection modify br0 ipv4.method manual
+  
+    ipv6:
+$ sudo nmcli connection modify bridge0 ipv6.addresses 'Your-Static-IPv6-Address'
+$ sudo nmcli connection modify br0 ipv6.gateway 'Your-Static-IPv6-Gateway-Address'
+$ sudo nmcli connection modify br0 ipv6.dns 'Your-Static-IPv6-DNS'
+$ sudo nmcli connection modify br0 ipv6.dns-search 'sweet.home'
+$ sudo nmcli connection modify br0 ipv6.method manual
+
