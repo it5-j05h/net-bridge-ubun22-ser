@@ -1,4 +1,4 @@
-The Spanning Tree Protocol (STP) is to ensure that you do not create redundant loops.
+STPnis to ensure that you don't create redundant loops.
 We can disable STP or enable as follows for br0:
 
 Input;
@@ -54,4 +54,3 @@ $ sudo nmcli connection modify br0 ipv6.gateway 'Your-Static-IPv6-Gateway-Addres
 $ sudo nmcli connection modify br0 ipv6.dns 'Your-Static-IPv6-DNS'
 $ sudo nmcli connection modify br0 ipv6.dns-search 'sweet.home'
 $ sudo nmcli connection modify br0 ipv6.method manual
-
