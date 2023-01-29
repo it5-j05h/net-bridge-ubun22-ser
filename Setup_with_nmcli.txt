@@ -1,0 +1,31 @@
+--Prerequisite for creating the network bridge--
+
+Input;
+
+$ nmcli con show
+$ nmcli connection show --active
+
+Output;
+
+NAME  UUID                                  TYPE      DEVICE 
+ETH0  71a189f2-9cb9-49f0-8464-37a6801740e3  ethernet  eth0
+
+
+--In the terminal--
+
+Find current network connections (^as shown above^);
+
+$ sudo nmcli con show
+
+Add bridge named 'br0'
+
+$ sudo nmcli con add ifname br0 type bridge con-name br0
+
+Next create add slave interface;
+
+$ sudo nmcli con add type bridge-slave ifname eth0 master br0
+
+Turn on the DHCP interface to serve IP's;
+
+$ sudo nmcli con up br0
+
