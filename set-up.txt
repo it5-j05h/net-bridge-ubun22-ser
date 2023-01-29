@@ -1,0 +1,40 @@
+Install bridge-utils
+
+$ sudo apt-get install bridge-utils
+
+Identify the interface with:
+
+$ ip ad
+OR
+$ ip add
+
+To configure networking you will need to edit you netplan config file
+
+$ cd /ect/netplan/
+$ nano netplan
+
+""EXAMPLE CONFIG FILE""
+
+  network:
+    version: 2
+    renderer: networkd
+    ethernets:
+      enp1s0:
+        dhcp4: no
+    bridges:
+      br0:
+        dhcp4: yes
+        interfaces:
+               - enp1s0
+               
+""END OF CONFIG FILE EXAMPLE""
+
+Save the config file Ctrl+O then Ctrl+X
+Apply the config file;
+
+$ sudo netplan apply
+
+We can then show all the system bridges;
+
+$ sudo brctl show
+
